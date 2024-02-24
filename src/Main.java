@@ -1,17 +1,57 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+@FunctionalInterface
+interface MySortInterface {
+    List<Integer> sort(List<Integer> arr);
+}
+
+@FunctionalInterface
+interface Executor {
+    int execute(int x);
+}
+
+class Runner {
+    public void run(Executor executor, int value) {
+        int ans = executor.execute(value);
+        System.out.println(ans);
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        List<Integer> array = new ArrayList<>(List.of(2, 1, 3, 5, 12, 6));
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        MySortInterface mySortInterface = ((x) -> {
+            Collections.sort(x);
+            return x;
+        });
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        array = mySortInterface.sort(array);
+        System.out.println(array);
+
+//        ---------------------------------------------------------------------------
+
+        Runner runner = new Runner();
+
+        int value = 7;
+        runner.run((x) -> x + 10, value);
+
+        //        ---------------------------------------------------------------------------
+
+        List<Integer> arr = new ArrayList<>(List.of(3, 2, 1));
+
+//        arr.sort(new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return o1 - o2;
+//            }
+//        });
+
+        arr.sort((Integer x1, Integer x2) -> x2 - x1);
+
+        System.out.println(arr);
     }
 }
